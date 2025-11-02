@@ -1405,7 +1405,11 @@ export const JunctionBox = () => {
   const getWagoWires = (wagoId: string) => {
     const wago = wagos.find((w) => w.id === wagoId);
     if (!wago) return [];
-    return wago.connectedWireIds
+    
+    // Define the standard wire color order
+    const wireColorOrder: WireColor[] = ["brown", "black", "grey", "blue", "green-yellow"];
+    
+    const wires = wago.connectedWireIds
       .map((wireId) => {
         const wire = cables
           .flatMap((c) => c.wires)
@@ -1416,6 +1420,13 @@ export const JunctionBox = () => {
           : null;
       })
       .filter(Boolean) as Array<Wire & { cableLabel: string }>;
+    
+    // Sort wires by their color order to maintain proper port arrangement
+    return wires.sort((a, b) => {
+      const aIndex = wireColorOrder.indexOf(a.color);
+      const bIndex = wireColorOrder.indexOf(b.color);
+      return aIndex - bIndex;
+    });
   };
 
   // Calculate orthogonal (right-angled) path between wire and wago
