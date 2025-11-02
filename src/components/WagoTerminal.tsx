@@ -156,14 +156,15 @@ export const WagoTerminal = ({
     >
       {/* Wago terminal block - horizontal layout like real WAGO */}
       <div
-        className={`bg-gradient-to-b ${getWagoColor()} rounded-sm border-2 shadow-lg transition-all ${
+        className={`bg-gradient-to-b ${getWagoColor()} border-2 shadow-lg transition-all ${
           isDragOver
             ? "border-primary ring-4 ring-primary/50"
             : "border-slate-400 dark:border-slate-600"
         }`}
         style={{
           width: wireCount > 0 ? `${Math.max(48, displaySlotCount * 18)}px` : "48px",
-          height: "28px",
+          // height: "28px",
+          borderRadius: "0.235rem",
           minWidth: "48px",
         }}
       >
@@ -179,15 +180,13 @@ export const WagoTerminal = ({
               return (
                 <div
                   key={isFilled ? `${wire.id}-${index}` : `empty-${index}`}
-                  className="h-full w-4 bg-slate-800/40 dark:bg-slate-900/60 rounded-sm border border-slate-600/50 flex flex-col items-center justify-between py-0.5 relative"
+                  className="h-full w-4 rounded-sm flex flex-col items-center justify-between py-0.5 relative"
                   title={isFilled ? wire.label : undefined}
                 >
-                  {/* Push button opening on top */}
-                  <div className="w-2.5 h-1.5 bg-slate-900/80 dark:bg-black/60 rounded-sm border border-slate-700/50" />
                   {/* Wire connection slot at bottom */}
                   <div className="w-3 h-2 bg-slate-900/60 dark:bg-black/40 rounded-sm flex items-center justify-center">
                     {isFilled ? (
-                      <div className="w-1.5 h-1.5 rounded-full bg-orange-500/60" />
+                      <div className={"w-1.5 h-1.5 rounded-full " + wire.color} />
                     ) : null}
                   </div>
                 </div>
