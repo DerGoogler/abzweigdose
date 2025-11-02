@@ -420,10 +420,11 @@ export const JunctionBox = () => {
 
     panRef.current = clamped;
     zoomRef.current = z;
-    // Apply transform directly to avoid re-render
-    el.style.transform = `translate3d(${clamped.x}px, ${clamped.y}px, 0) scale(${finalScale})`;
-    el.style.transformOrigin = "top left";
-    el.style.willChange = "transform";
+    // Apply zoom and transform directly to avoid re-render
+    // Use CSS zoom instead of scale() to avoid blur
+    el.style.zoom = `${finalScale}`;
+    el.style.transform = `translate3d(${clamped.x}px, ${clamped.y}px, 0)`;
+    el.style.willChange = "transform, zoom";
   };
 
   const handleZoomIn = () => {
