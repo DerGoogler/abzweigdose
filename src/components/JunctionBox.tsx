@@ -15,6 +15,7 @@ import { AddCableDialog } from "@/components/AddCableDialog";
 import { EditCableDialog } from "@/components/EditCableDialog";
 import { WagoTerminal } from "@/components/WagoTerminal";
 import { toast } from "sonner";
+import { configDB } from "@/lib/db";
 import {
   Cable,
   Trash2,
@@ -473,16 +474,18 @@ export const JunctionBox = () => {
     setPan(centered);
   };
 
-  // Load saved configs from localStorage
+  // Load saved configs from IndexedDB
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("abzweigdose-configs");
-      if (saved) {
-        setSavedConfigs(JSON.parse(saved));
+    const loadConfigs = async () => {
+      try {
+        await configDB.init();
+        const configs = await configDB.getAllConfigs();
+        setSavedConfigs(configs);
+      } catch (error) {
+        console.error("Error loading saved configs:", error);
       }
-    } catch (error) {
-      console.error("Error loading saved configs:", error);
-    }
+    };
+    loadConfigs();
   }, []);
 
   // Measure container width for responsive scaling
@@ -1293,8 +1296,8 @@ export const JunctionBox = () => {
     input.click();
   };
 
-  // Save current configuration to localStorage
-  const handleSaveConfig = () => {
+  // Save current configuration to IndexedDB
+  const handleSaveConfig = async () => {
     if (isReadonly) {
       toast.error("Schreibgeschützte Konfiguration kann nicht gespeichert werden");
       return;
@@ -1315,14 +1318,19 @@ export const JunctionBox = () => {
       wagos,
     };
 
-    const updatedConfigs = [...savedConfigs, newConfig];
-    setSavedConfigs(updatedConfigs);
-    localStorage.setItem("abzweigdose-configs", JSON.stringify(updatedConfigs));
-    
-    toast.success(`"${newConfig.name}" gespeichert`);
-    setConfigName("");
-    setConfigDescription("");
-    setConfigManagerOpen(false);
+    try {
+      await configDB.saveConfig(newConfig);
+      const updatedConfigs = [...savedConfigs, newConfig];
+      setSavedConfigs(updatedConfigs);
+      
+      toast.success(`"${newConfig.name}" gespeichert`);
+      setConfigName("");
+      setConfigDescription("");
+      setConfigManagerOpen(false);
+    } catch (error) {
+      console.error("Error saving config:", error);
+      toast.error("Fehler beim Speichern der Konfiguration");
+    }
   };
 
   // Load a saved configuration
@@ -1339,12 +1347,18 @@ export const JunctionBox = () => {
   };
 
   // Delete a saved configuration
-  const handleDeleteConfig = (configId: string) => {
+  const handleDeleteConfig = async (configId: string) => {
     const config = savedConfigs.find((c) => c.id === configId);
-    const updatedConfigs = savedConfigs.filter((c) => c.id !== configId);
-    setSavedConfigs(updatedConfigs);
-    localStorage.setItem("abzweigdose-configs", JSON.stringify(updatedConfigs));
-    toast.success(`"${config?.name}" gelöscht`);
+    
+    try {
+      await configDB.deleteConfig(configId);
+      const updatedConfigs = savedConfigs.filter((c) => c.id !== configId);
+      setSavedConfigs(updatedConfigs);
+      toast.success(`"${config?.name}" gelöscht`);
+    } catch (error) {
+      console.error("Error deleting config:", error);
+      toast.error("Fehler beim Löschen der Konfiguration");
+    }
   };
 
   // Share a saved configuration using the same export dialog
