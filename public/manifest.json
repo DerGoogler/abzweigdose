@@ -1,0 +1,40 @@
+{
+  "name": "Abzweigdose - Elektrische Verbindungen",
+  "short_name": "Abzweigdose",
+  "description": "Interaktiver Planer für Abzweigdosen mit 3- und 5-adrigen Kabeln. Visualisieren Sie elektrische Verbindungen per Drag & Drop.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["utilities", "productivity"],
+  "shortcuts": [
+    {
+      "name": "Neue Konfiguration",
+      "short_name": "Neu",
+      "description": "Starte eine neue Abzweigdosen-Konfiguration",
+      "url": "/",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

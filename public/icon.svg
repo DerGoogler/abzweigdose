@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 624 624" fill="none">
+  <rect width="624" height="624" fill="white"/>
+  <path d="M122 142C122 119.909 139.909 102 162 102h300c22.091 0 40 17.909 40 40v340c0 22.091-17.909 40-40 40H162c-22.091 0-40-17.909-40-40V142z" fill="#000"/>
+  <rect x="274" y="42" width="76" height="90" rx="20" fill="#000"/>
+  <circle cx="312" cy="62" r="30" fill="#000"/>
+  <rect x="472" y="274" width="90" height="76" rx="20" fill="#000"/>
+  <circle cx="542" cy="312" r="30" fill="#000"/>
+  <rect x="274" y="492" width="76" height="90" rx="20" fill="#000"/>
+  <circle cx="312" cy="562" r="30" fill="#000"/>
+  <rect x="62" y="274" width="90" height="76" rx="20" fill="#000"/>
+  <circle cx="82" cy="312" r="30" fill="#000"/>
+  <path d="M340 240L264 340H300L284 384L360 284H324L340 240Z" fill="#fff"/>
+  <circle cx="180" cy="180" r="18" fill="#8B4513" stroke="#fff" stroke-width="3"/>
+  <circle cx="444" cy="180" r="18" fill="#0066CC" stroke="#fff" stroke-width="3"/>
+  <defs>
+    <pattern id="greenYellowStripe" patternUnits="userSpaceOnUse" width="12" height="12" patternTransform="rotate(45)">
+      <rect width="6" height="12" fill="#22C55E"/>
+      <rect x="6" width="6" height="12" fill="#EAB308"/>
+    </pattern>
+  </defs>
+  <circle cx="312" cy="444" r="18" fill="url(#greenYellowStripe)" stroke="#fff" stroke-width="3"/>
+</svg>
